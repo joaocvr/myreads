@@ -1,9 +1,9 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
-import ListBooks from "../ListBooks";
 import { getAll } from "../../BooksAPI";
+import Bookshelf from "../Bookshelf";
 
-class MyPanel extends Component {
+class MyBooks extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -50,28 +50,13 @@ class MyPanel extends Component {
       <div>
         <div className="list-books">
           <div className="list-books-title">
-            <h1>MyReads</h1>
+            <h1>MyReadsApp</h1>
           </div>
           <div className="list-books-content">
             <div>
-              <div className="bookshelf">
-                <h2 className="bookshelf-title">Currently Reading</h2>
-                <div className="bookshelf-books">
-                  <ListBooks books={currentlyReading} />
-                </div>
-              </div>
-              <div className="bookshelf">
-                <h2 className="bookshelf-title">Want to Read</h2>
-                <div className="bookshelf-books">
-                  <ListBooks books={wantToRead} />
-                </div>
-              </div>
-              <div className="bookshelf">
-                <h2 className="bookshelf-title">Read</h2>
-                <div className="bookshelf-books">
-                  <ListBooks books={read} />
-                </div>
-              </div>
+              <Bookshelf title="Currently Reading" books={currentlyReading} />
+              <Bookshelf title="Want to Read" books={wantToRead} />
+              <Bookshelf title="Read" books={read} />
             </div>
           </div>
         </div>
@@ -85,4 +70,4 @@ class MyPanel extends Component {
   }
 }
 
-export default MyPanel;
+export default MyBooks;

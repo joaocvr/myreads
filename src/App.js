@@ -2,7 +2,7 @@ import React, { Component } from "react";
 // import * as BooksAPI from './BooksAPI'
 import "./App.css";
 import SearchBooks from "./components/SearchBooks";
-import MyPanel from "./components/MyPanel";
+import MyBooks from "./components/MyBooks";
 import { BrowserRouter, Switch, Route } from "react-router-dom";
 
 class BooksApp extends Component {
@@ -11,7 +11,7 @@ class BooksApp extends Component {
       <div className="app">
         <BrowserRouter>
           <Switch>
-            <Route path="/" exact={true} component={MyPanel} />
+            <Route path="/" exact component={MyBooks} />
             <Route path="/search" component={SearchBooks} />
           </Switch>
         </BrowserRouter>
