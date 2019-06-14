@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom/cjs/react-router-dom.min";
 import { search as searchAPI } from "../../BooksAPI";
-import ListBooks from "../ListBooks";
+import Bookshelf from "../Bookshelf";
 
 class SearchBooks extends Component {
   constructor() {
@@ -24,12 +24,9 @@ class SearchBooks extends Component {
 
   searchBook(event) {
     const query = event.target.value + event.key;
-    searchAPI(query).then(
-      books => {
-        this.setState({ ...this.state, books });
-      },
-      _ => {} //reject
-    );
+    searchAPI(query).then(books => {
+      this.setState({ books });
+    });
     return;
   }
 
@@ -50,7 +47,7 @@ class SearchBooks extends Component {
         </div>
         <div className="search-books-results">
           <ol className="books-grid">
-            {<ListBooks books={this.state.books} />}
+            <Bookshelf books={this.state.books} />
           </ol>
         </div>
       </div>

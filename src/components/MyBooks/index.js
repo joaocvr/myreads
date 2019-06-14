@@ -14,37 +14,27 @@ class MyBooks extends Component {
   }
 
   componentDidMount() {
-    getAll().then(
-      books => {
-        let currentlyReading = [];
-        let wantToRead = [];
-        let read = [];
+    getAll().then(books => {
+      let currentlyReading = [];
+      let wantToRead = [];
+      let read = [];
 
-        for (const book of books.values()) {
-          if (book.shelf === "currentlyReading") {
-            currentlyReading.push(book);
-          } else if (book.shelf === "wantToRead") {
-            wantToRead.push(book);
-          } else {
-            read.push(book);
-          }
+      for (const book of books.values()) {
+        if (book.shelf === "currentlyReading") {
+          currentlyReading.push(book);
+        } else if (book.shelf === "wantToRead") {
+          wantToRead.push(book);
+        } else {
+          read.push(book);
         }
-        this.setState({ currentlyReading, wantToRead, read });
-        return;
-      },
-      reject => {
-        console.log(
-          "MyPanel - componentDidMount() - BooksAPI.getAll()",
-          reject
-        );
       }
-    );
+      this.setState({ currentlyReading, wantToRead, read });
+      return;
+    });
   }
 
   render() {
-    const currentlyReading = this.state.currentlyReading;
-    const wantToRead = this.state.wantToRead;
-    const read = this.state.read;
+    const { currentlyReading, wantToRead, read } = this.state;
 
     return (
       <div>
