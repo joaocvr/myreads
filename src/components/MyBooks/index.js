@@ -4,37 +4,32 @@ import { getAll } from "../../BooksAPI";
 import Bookshelf from "../Bookshelf";
 
 class MyBooks extends Component {
-  constructor(props) {
-    super(props);
+  constructor() {
+    super();
     this.state = {
-      currentlyReading: [],
-      wantToRead: [],
-      read: []
+      books: []
     };
+
+    this.changeBookshelf = this.changeBookshelf.bind(this);
   }
 
   componentDidMount() {
     getAll().then(books => {
-      let currentlyReading = [];
-      let wantToRead = [];
-      let read = [];
-
-      for (const book of books.values()) {
-        if (book.shelf === "currentlyReading") {
-          currentlyReading.push(book);
-        } else if (book.shelf === "wantToRead") {
-          wantToRead.push(book);
-        } else {
-          read.push(book);
-        }
-      }
-      this.setState({ currentlyReading, wantToRead, read });
+      this.setState({ books });
       return;
     });
   }
 
+  changeBookshelf(book) {
+    const { books } = this.state;
+    books.map(b => {
+      return b.id === book.id ? book : b;
+    });
+    this.setState({ books });
+  }
+
   render() {
-    const { currentlyReading, wantToRead, read } = this.state;
+    const { books } = this.state;
 
     return (
       <div>
@@ -44,9 +39,21 @@ class MyBooks extends Component {
           </div>
           <div className="list-books-content">
             <div>
-              <Bookshelf title="Currently Reading" books={currentlyReading} />
-              <Bookshelf title="Want to Read" books={wantToRead} />
-              <Bookshelf title="Read" books={read} />
+              <Bookshelf
+                title="Currently Reading"
+                books={books.filter(book => book.shelf === "currentlyReading")}
+                changeBookshelf={this.changeBookshelf}
+              />
+              <Bookshelf
+                title="Want to Read"
+                books={books.filter(book => book.shelf === "wantToRead")}
+                changeBookshelf={this.changeBookshelf}
+              />
+              <Bookshelf
+                title="Read"
+                books={books.filter(book => book.shelf === "read")}
+                changeBookshelf={this.changeBookshelf}
+              />
             </div>
           </div>
         </div>

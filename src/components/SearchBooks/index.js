@@ -1,36 +1,15 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom/cjs/react-router-dom.min";
 import { search as searchAPI } from "../../BooksAPI";
-import Bookshelf from "../Bookshelf";
+import Book from "../Book";
 
 class SearchBooks extends Component {
-  constructor() {
-    super();
-    this.state = {
-      books: []
-    };
-
-    this.searchBook = this.searchBook.bind(this);
-    this.showBooksSearched = this.showBooksSearched.bind(this);
-  }
-
-  showBooksSearched() {
-    let liItens = [];
-    for (const book of this.state.books) {
-      liItens.push(<li>{book.title}</li>);
-    }
-    return liItens;
-  }
-
-  searchBook(event) {
-    const query = event.target.value + event.key;
-    searchAPI(query).then(books => {
-      this.setState({ books });
-    });
-    return;
-  }
+  state = {
+    books: []
+  };
 
   render() {
+    const { books } = this.state;
     return (
       <div className="search-books">
         <div className="search-books-bar">
@@ -41,13 +20,22 @@ class SearchBooks extends Component {
             <input
               type="text"
               placeholder="Search by title or author"
-              onKeyPress={this.searchBook}
+              onChange={event => {
+                searchAPI(event.target.value).then(books => {
+                  this.setState({ books });
+                });
+              }}
             />
           </div>
         </div>
         <div className="search-books-results">
           <ol className="books-grid">
-            <Bookshelf books={this.state.books} />
+            {books &&
+              books.map(b => (
+                <li key={b.id}>
+                  <Book book={b} />
+                </li>
+              ))}
           </ol>
         </div>
       </div>

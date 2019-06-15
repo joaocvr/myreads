@@ -15,7 +15,12 @@ class Book extends Component {
             }}
           />
           <div className="book-shelf-changer">
-            <select>
+            <select
+              onClick={event => {
+                book.shelf = event.target.value;
+                return this.props.changeBookshelf(book);
+              }}
+            >
               <option value="move" disabled>
                 Move to...
               </option>
@@ -27,7 +32,7 @@ class Book extends Component {
           </div>
         </div>
         <div className="book-title">{book.title}</div>
-        <div className="book-authors">{book.authors}}</div>
+        <div className="book-authors">{book.authors}</div>
       </div>
     );
   }
