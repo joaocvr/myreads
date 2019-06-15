@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
-import { getAll } from "../../BooksAPI";
+import { getAll, update } from "../../BooksAPI";
 import Bookshelf from "../Bookshelf";
 
 class MyBooks extends Component {
@@ -20,10 +20,13 @@ class MyBooks extends Component {
     });
   }
 
-  changeBookshelf(book) {
-    const { books } = this.state;
-    books.map(b => {
-      return b.id === book.id ? book : b;
+  changeBookshelf(book, shelf) {
+    update(book, shelf);
+    let { books } = this.state;
+    books.forEach(b => {
+      if (b.id === book.id) {
+        b.shelf = shelf;
+      }
     });
     this.setState({ books });
   }
