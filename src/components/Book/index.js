@@ -14,6 +14,7 @@ class Book extends Component {
               backgroundImage: `url("${book.imageLinks &&
                 book.imageLinks.thumbnail}")`
             }}
+            onClick={_ => window.open(book.infoLink)}
           />
           <div className="book-shelf-changer">
             <select
