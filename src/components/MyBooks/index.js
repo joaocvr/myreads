@@ -4,23 +4,17 @@ import { getAll, update } from "../../BooksAPI";
 import Bookshelf from "../Bookshelf";
 
 class MyBooks extends Component {
-  constructor() {
-    super();
-    this.state = {
-      books: []
-    };
-
-    this.changeBookshelf = this.changeBookshelf.bind(this);
-  }
+  state = {
+    books: []
+  };
 
   componentDidMount() {
     getAll().then(books => {
       this.setState({ books });
-      return;
     });
   }
 
-  changeBookshelf(book, shelf) {
+  changeBookshelf = (book, shelf) => {
     update(book, shelf);
     let { books } = this.state;
     books.forEach(b => {
@@ -29,7 +23,7 @@ class MyBooks extends Component {
       }
     });
     this.setState({ books });
-  }
+  };
 
   render() {
     const { books } = this.state;
