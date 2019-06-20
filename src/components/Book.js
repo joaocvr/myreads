@@ -1,8 +1,6 @@
 import React from "react";
 
-const Book = props => {
-  const { book, changeBookshelf } = props;
-
+const Book = ({ book, changeBookshelf }) => {
   return (
     <div className="book">
       <div className="book-top">
@@ -18,7 +16,7 @@ const Book = props => {
         />
         <div className="book-shelf-changer">
           <select
-            value={book.shelf}
+            value={book.shelf ? book.shelf : "none"}
             onChange={event => changeBookshelf(book, event.target.value)}
           >
             <option value="move" disabled>
