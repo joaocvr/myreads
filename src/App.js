@@ -12,9 +12,10 @@ class BooksApp extends Component {
 
   changeBookshelf = (book, shelf) => {
     update(book, shelf).then(_ => {
-      getAll().then(books => {
-        this.setState({ books });
-      });
+      book.shelf = shelf;
+      this.setState(
+        this.state.books.filter(b => b.id !== book.id).concat(book)
+      );
     });
   };
 
