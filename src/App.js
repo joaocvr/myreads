@@ -12,13 +12,9 @@ class BooksApp extends Component {
 
   changeBookshelf = (book, shelf) => {
     update(book, shelf).then(_ => {
-      const books = this.state.books.map(b => {
-        if (b.id === book.id) {
-          b.shelf = shelf;
-        }
-        return b;
+      getAll().then(books => {
+        this.setState({ books });
       });
-      this.setState({ books });
     });
   };
 
@@ -48,7 +44,6 @@ class BooksApp extends Component {
                 <SearchBooks
                   books={books}
                   changeBookshelf={this.changeBookshelf}
-                  updateParent={_ => this.render()}
                 />
               )}
             />
